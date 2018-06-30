@@ -1,0 +1,12 @@
+# Points of Interest
+
+image:https://img.shields.io/badge/Couchbase-v5.5.0--beta-red.svg[link=https://www.couchbase.com/downloads] image:https://img.shields.io/badge/License-Apache%202.0-green.svg[link=https://opensource.org/licenses/Apache-2.0]
+
+Web application to show points of interest near hotels.
+Based on link:https://www.couchbase.com[Couchbase Server], link:https://vuejs.org[Vue.js], link:https://nodejs.org/[Node.js], and link:https://expressjs.com[Express].
+
+Uses link:https://developers.google.com/maps/documentation/[Google Maps] and link:https://developer.here.com/develop/rest-apis[Here Places] external APIs.
+
+Uses data from the link:https://developer.couchbase.com/documentation/server/current/sdk/sample-application.html#travel-sample-app-generic__using-travel-app[travel sample] application.
+
+Licensed under link:https://opensource.org/licenses/Apache-2.0[Apache 2.0].

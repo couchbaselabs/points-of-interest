@@ -1,0 +1,42 @@
+{
+  "name": "poi",
+  "description": "Points of Interest, using Vue.js, Node.js, Express, Google Maps, Here Places, and Couchbase Server.",
+  "version": "1.0.0",
+  "author": "Hod Greeley <hod@couchbase.com>",
+  "private": true,
+  "scripts": {
+    "dev": "cd client && cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cd client && cross-env NODE_ENV=production webpack --progress --hide-modules && cp index.html dist/"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.0.0-beta.2",
+    "bootstrap-vue": "^1.2.0",
+    "cookie-parser": "^1.4.3",
+    "couchbase": "^2.4.6",
+    "debug": "^3.1.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "popper.js": "^1.12.9",
+    "sse-channel": "^3.1.0",
+    "vue": "^2.5.3",
+    "vue2-google-maps": "^0.9.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.5",
+    "style-loader": "^0.19.0",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.3",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
