@@ -5,7 +5,7 @@ const express = require('express');
 
 const debug = require('debug')('poi:server');
 const path = require('path');
-//var favicon = require('serve-favicon');
+const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -22,8 +22,8 @@ app.locals.cluster = cluster;
 app.locals.travel = cluster.openBucket('travel-sample');
 app.locals.eventing = cluster.openBucket('eventing');
 
-// uncomment after placing your favicon in /dist
-//app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '../client/dist/assets/favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
