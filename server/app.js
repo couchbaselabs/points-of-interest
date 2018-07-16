@@ -10,6 +10,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
 const couchbase = require('couchbase');
 const cluster = new couchbase.Cluster(process.env.CLUSTER);
@@ -46,7 +48,7 @@ app.use('/events', events);
 app.use(function(req, res, next) {
   console.dir(req);
   console.dir(res);
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -62,29 +64,33 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// HTTP server
+
+const http_port = process.env.HTTP_PORT;
+const http_server = http.createServer(app);
+
+http_server.listen(http_port);
+
+http_server.on('error', onError);
+http_server.on('listening', onListening);
+
+// HTTPS server
+
+const options = {
+  key: fs.readFileSync(path.join('ssl', 'key.pem')),
+  cert: fs.readFileSync(path.join('ssl', 'cert.pem'))
+};
+
+const https_port = process.env.HTTPS_PORT;
+const https_server = https.createServer(options, app);
+
+https_server.listen(https_port);
+
+https_server.on('error', onError);
+https_server.on('listening', onListening);
+
 /**
- * Get port from environment and store in Express.
- */
-
-const port = process.env.PORT;
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-const server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Event listener for HTTP server "error" event.
+ * Event listener for HTTP/S server "error" event.
  */
 
 function onError(error) {
@@ -92,7 +98,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -112,12 +118,12 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for HTTP/S server "listening" event.
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  let addr = this.address();
+  let bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
