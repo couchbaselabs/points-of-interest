@@ -33,8 +33,9 @@
 import config from './config'
 import axios from 'axios'
 
-const server = axios.create({ baseURL: config.serverURL });
-const es = new EventSource(`${config.serverURL}/events/poi`);
+const serverURL = location.origin;
+const server = axios.create({ baseURL: serverURL });
+const es = new EventSource(`${serverURL}/events/poi`);
 
 export default {
   name: 'app',
