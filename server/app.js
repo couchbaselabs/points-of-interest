@@ -24,7 +24,7 @@ app.locals.cluster = cluster;
 app.locals.travel = cluster.openBucket('travel-sample');
 app.locals.eventing = cluster.openBucket('eventing');
 
-app.use(favicon(path.join(__dirname, '../client/dist/assets/favicon.ico')));
+app.use(favicon(path.join(__dirname, 'images/favicon.ico')));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
