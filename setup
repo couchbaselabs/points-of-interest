@@ -1,0 +1,31 @@
+#! /bin/bash
+
+echo -n "Google Maps key: "
+read gmk
+
+cat >client/src/config.js << EOF
+export default {
+  googleMapsKey: '${gmk}'
+}
+EOF
+
+cp server/.env.example server/.env
+
+# Whitelist sites for cURL
+curl -X POST -u Administrator:password -d '{ "all_access": true }' http://localhost:8091/settings/querySettings/curlWhitelist
+
+# Configure Eventing function
+## Setup Bucket
+couchbase-cli bucket-create -c couchbase://localhost -u Administrator -p password  \
+  --bucket eventing --bucket-type couchbase --bucket-ramsize 100
+
+## Set monitoring function
+curl -X POST -u Administrator:password -d @eventing.json http://localhost:8096/api/v1/functions/poi
+
+echo -n "Here app id: "
+read hereAppID
+
+echo -n "Here app code: "
+read hereAppCode
+
+curl http://localhost:8093/query/service -u Administrator:password -d "statement=UPSERT INTO eventing (KEY, VALUE) VALUES (\"here\", { \"id\": \"$hereAppID\", \"code\": \"$hereAppCode\" }) RETURNING *"
