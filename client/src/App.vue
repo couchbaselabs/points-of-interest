@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import config from './config'
 import axios from 'axios'
 
 const serverURL = location.origin;
