@@ -1,4 +1,3 @@
-global.Promise = require('bluebird')
 import config from './config'
 import Vue from 'vue'
 import BootstrapVue from "bootstrap-vue"
