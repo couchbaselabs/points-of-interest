@@ -58,7 +58,6 @@ export default {
   },
   watch: {
     selected: function() {
-      // Why doesn't this work with computing display?
       this.$root.$emit('bv::refresh::table', 'destinations');
     }
   },
